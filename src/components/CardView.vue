@@ -1,35 +1,35 @@
 <template>
 <div>
   <template v-if="isLoading">
-    <img src="http://activity.cmcc-cs.cn/chop/res/prd-ngmc1/product/product/06077159035a4e9a88469fa895113398.png" alt="" class="default-img" v-if="isLoading">
+    <img src="http://activity.cmcc-cs.cn/chop/res/prd-ngmc1/product/product/06077159035a4e9a88469fa895113398.png" alt="" class="business-default-img" v-if="isLoading">
   </template>
   <template v-else>
-    <div class="plugin-card" v-if="engineerInfo.realName">
-      <div class="left">
-        <img  class="avatar" :src="engineerInfo.photo || this.avatar" alt="Avatar" />
-        <div class="tag">我的智家工程师</div>
+    <div class="business-plugin-card" v-if="engineerInfo.realName">
+      <div class="business-plugin-card-left">
+        <img  class="business-avatar" :src="engineerInfo.photo || this.avatar" alt="Avatar" />
+        <div class="business-tag">我的智家工程师</div>
       </div>
-      <div class="right">
-        <div class="top-wrap flex-between-center">
-          <span class="name">{{ engineerInfo.realName }}</span>
-          <div @click="gotoVoiceService" class="btn-wrap flex-between-center" v-if="isAppChannel"><i class="tel-icon"></i><span class="btn">联系工程师</span></div>
+      <div class="business-plugin-card-right">
+        <div class="business-top-wrap business-flex-between-center">
+          <span class="business-name">{{ engineerInfo.realName }}</span>
+          <div @click="gotoVoiceService" class="business-btn-wrap business-flex-between-center" v-if="isAppChannel"><i class="business-tel-icon"></i><span class="business-btn">联系工程师</span></div>
         </div>
-        <div class="bottom-wrap flex-between-center">
-          <div class="item">
-              <div class="value">{{ engineerInfo.satisfaction }}分</div>
-              <div class="label">服务满意度</div>
+        <div class="business-bottom-wrap business-flex-between-center">
+          <div class="business-item">
+              <div class="business-value">{{ engineerInfo.satisfaction }}分</div>
+              <div class="business-label">服务满意度</div>
           </div>
-          <div class="item">
-              <div class="value">{{ engineerInfo.workYear }}年</div>
-              <div class="label">工作经验</div>
+          <div class="business-item">
+              <div class="business-value">{{ engineerInfo.workYear }}年</div>
+              <div class="business-label">工作经验</div>
           </div>
-          <div class="item" v-if="engineerInfo.starLevel">
-              <div class="star-backgroud">
-                <div class="star-rating" >
-                  <i class="star-icon" v-for="(_, index) in starLevels" :key="index"></i>
+          <div class="business-item" v-if="engineerInfo.starLevel">
+              <div class="business-star-backgroud">
+                <div class="business-star-rating" >
+                  <i class="business-star-icon" v-for="(_, index) in starLevels" :key="index"></i>
                 </div>
               </div>
-              <div class="label">星级</div>
+              <div class="business-label">星级</div>
           </div>
         </div>
       </div>
@@ -131,7 +131,6 @@ export default {
         if (hours >= 8 && hours < 20) {
           // 在APP内呼叫工程师音频
           if (window) {
-            console.log('满足唤起音频条件')
             // 呼叫工程师音频独有参数
             const ext = {
               engMode: true,
@@ -152,14 +151,12 @@ export default {
               guideVoiceNumber: '0', // 音频引导页展示次数，配置规则同视频引导页
               ext
             }
-            console.log('调起音频的参数', param)
             window.cmcc.startVoipVoiceOrVideo(param)
           } else {
             console.log('不满足在APP内且window.cmcc存在')
           }
         } else {
           // 不在工作时间内，弹窗提示
-          console.log('非工作时间')
           this.showDialog = true
           this.sensorsTrack('PopExposure', { window_name: '工作时间弹窗' })
         }
@@ -189,17 +186,17 @@ export default {
 </script>
 
 <style scoped lang="less">
-.default-img{
+.business-default-img{
   width: 690px;
   height: 210px;
   margin: 0 auto;
 }
-.flex-between-center{
+.business-flex-between-center{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.plugin-card {
+.business-plugin-card {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -208,18 +205,18 @@ export default {
   padding: 24px 30px 30px;
   display: flex;
   justify-content: space-between;
-  .left {
+  .business-plugin-card-left {
     width: 154px;
     height: 145px;
     margin-top: 11px;
     position: relative;
     text-align: center;
-    .avatar {
+    .business-avatar {
       width: 140px;
       height: 140px;
       border-radius: 50%;
     }
-    .tag {
+    .business-tag {
       position: absolute;
       left: 0;
       bottom: 0;
@@ -234,11 +231,11 @@ export default {
       text-align: center;
     }
   }
-  .right{
+  .business-plugin-card-right{
     margin-left: 36px;
     flex: 1;
-    .top-wrap {
-      .name{
+    .business-top-wrap {
+      .business-name{
         flex: 1;
         height: 44px;
         font-size: 30px;
@@ -248,7 +245,7 @@ export default {
         overflow: hidden;
         word-break: break-all;
       }
-      .btn-wrap{
+      .business-btn-wrap{
         width: 194px;
         height: 56px;
         background: linear-gradient( 270deg, #54CCFF 0%, #007EFF 100%);
@@ -257,13 +254,13 @@ export default {
         justify-content: center;
         align-items: center;
         margin-left: 4px;
-        .tel-icon{
+        .business-tel-icon{
           width: 26px;
           height: 26px;
           background: url('http://activity.cmcc-cs.cn/chop/res/prd-ngmc1/product/product/f8736e2f97a4492c882fe9e20e1bf773.png') no-repeat 0 0;
           background-size: cover;
         }
-        .btn{
+        .business-btn{
           margin-left: 12px;
           font-size: 24px;
           font-weight: bold;
@@ -271,23 +268,23 @@ export default {
         }
       }
     }
-    .bottom-wrap{
+    .business-bottom-wrap{
       margin-top: 30px;
-      .item{
+      .business-item{
         text-align: center;
-        .value{
+        .business-value{
           font-size: 24px;
           font-weight: bold;
           color: #000000;
           line-height: 32px;
         }
-        .label{
+        .business-label{
           padding-top: 6px;
           font-size: 20px;
           color: #999999;
           line-height: 32px;
         }
-        .star-backgroud{
+        .business-star-backgroud{
           width: 145px;
           height: 28px;
           margin: 2px 0;
@@ -296,14 +293,14 @@ export default {
           position: relative;
           overflow: hidden;
         }
-        .star-rating {
+        .business-star-rating {
           position: absolute;
           top: 0;
           left: 0;
           width: 145px;
           height: 28px;
           display: flex;
-          .star-icon{
+          .business-star-icon{
             width: 29px;
             height: 29px;
             background: url('http://activity.cmcc-cs.cn/chop/res/prd-ngmc1/product/product/f9912ada937744e1b9d2ad7a31bf6b87.png') no-repeat 0 0;
