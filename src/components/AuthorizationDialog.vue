@@ -16,7 +16,7 @@
 <script>
 import { fetchPostData } from '@/utils/request'
 export default {
-  name: 'AuthenticationDialog',
+  name: 'AuthorizationDialog',
   props: {
     visible: {
       type: Boolean,

@@ -38,13 +38,13 @@
   <!-- 非工作时间的弹窗展示 -->
   <NonWorkingDialog :visible.sync="showDialog" />
    <!-- 授权弹窗 -->
-   <AuthenticationDialog :visible.sync="showAuthDialog" :desMobile="engineerInfo.desMobile"  @handelConfirmCall="startVoipVoiceOrVideo"/>
+   <AuthorizationDialog :visible.sync="showAuthDialog" :desMobile="engineerInfo.desMobile"  @handelConfirmCall="startVoipVoiceOrVideo"/>
 </div>
 
 </template>
 <script>
 import NonWorkingDialog from './NonWorkingDialog.vue'
-import AuthenticationDialog from './AuthenticationDialog.vue'
+import AuthorizationDialog from './AuthorizationDialog.vue'
 import { isApp } from '@/utils/tool'
 import { fetchGetData } from '@/utils/request'
 export default {
@@ -56,7 +56,7 @@ export default {
     appId: String, // 区分调用方，依据调用方分配不同的 appId
     onError: Function // 工程师获取失败后调用此方法
   },
-  components: { NonWorkingDialog, AuthenticationDialog },
+  components: { NonWorkingDialog, AuthorizationDialog },
   data () {
     return {
       engineerInfo: {}, // 工程师信息
