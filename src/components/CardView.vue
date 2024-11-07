@@ -12,7 +12,7 @@
       <div class="business-plugin-card-right">
         <div class="business-top-wrap business-flex-between-center">
           <span class="business-name">{{ engineerInfo.realName }}</span>
-          <div @click="gotoVoiceService" class="business-btn-wrap business-flex-between-center" v-if="isAppChannel"><i class="business-tel-icon"></i><span class="business-btn">联系工程师</span></div>
+          <div @click="gotoVoiceService" class="business-btn-wrap business-flex-between-center"><i class="business-tel-icon"></i><span class="business-btn">联系工程师</span></div>
         </div>
         <div class="business-bottom-wrap business-flex-between-center">
           <div class="business-item">
@@ -37,11 +37,14 @@
   </template>
   <!-- 非工作时间的弹窗展示 -->
   <NonWorkingDialog :visible.sync="showDialog" />
+   <!-- 授权弹窗 -->
+   <AuthenticationDialog :visible.sync="showAuthDialog" :mobile="engineerInfo.mobile"  @handelConfirmCall="startVoipVoiceOrVideo"/>
 </div>
 
 </template>
 <script>
 import NonWorkingDialog from './NonWorkingDialog.vue'
+import AuthenticationDialog from './AuthenticationDialog.vue'
 import { isApp } from '@/utils/tool'
 import { fetchGetData } from '@/utils/request'
 export default {
@@ -53,13 +56,14 @@ export default {
     appId: String, // 区分调用方，依据调用方分配不同的 appId
     onError: Function // 工程师获取失败后调用此方法
   },
-  components: { NonWorkingDialog },
+  components: { NonWorkingDialog, AuthenticationDialog },
   data () {
     return {
       engineerInfo: {}, // 工程师信息
       isLoading: false, // 展示占位图
       avatar: 'http://activity.cmcc-cs.cn/chop/res/prd-ngmc1/product/product/3f02b979a58d4cc89e92d21f779ba320.png', // 默认头像
-      showDialog: false, // 星级样式，默认展示灰色星星背景
+      showDialog: false, // 非工作时间弹窗是否展示
+      showAuthDialog: false, // 授权弹窗是否展示
       starLevels: [], // 星级转换
       isAppChannel: isApp() // 是否是App渠道
     }
@@ -129,31 +133,14 @@ export default {
         const now = new Date()
         const hours = now.getHours() // 获取当前小时
         if (hours >= 8 && hours < 20) {
-          // 在APP内呼叫工程师音频
-          if (window) {
-            // 呼叫工程师音频独有参数
-            const ext = {
-              engMode: true,
-              engPhoto: this.avatar,
-              engRefer: `智家工程师${this.engineerInfo.realName}`
-            }
-            // 基础参数
-            const param = {
-              debug: false,
-              type: '0', // 音视频类型，0是音频客服，1是视频客服
-              useOneScreen: false, // 是否使用同屏，true 表示使用同屏 ，false表示非同屏，默认传true
-              useGonetoneUserFlag: false, // 是否使用全球通用户专属视觉页面，如果传true，需先自行校验是全球通用户，默认传false
-              voiceCallUseOnline: false, // 是否走热线混排，看该省份该渠道是否支持， 默认情况下传false
-              appKey: 'jtztty_sdk#ZH46048899506', // 渠道申请的AppKey
-              companyId: 'jtztty_sdk', // 对应appkey #号前的内容
-              sceneEntry: this.sceneEntry, // 场景值，需要产品分配，联系在线本部 王乐（18703666930）、黄宇（13526430307）配置
-              guideVideoNumber: '0', // 视频引导页展示次数，配置规则：如果不配置默认是展示3次，如果配置“0”默认引导页不展示，如果配置大于等于999，引导页会一直显示，如果，配置1-998，那么会根据配置的次数进行展示
-              guideVoiceNumber: '0', // 音频引导页展示次数，配置规则同视频引导页
-              ext
-            }
-            window.cmcc.startVoipVoiceOrVideo(param)
+          // 缓存的用户授权记录是否存在 || 接口授权记录
+          const authStatus = sessionStorage.getItem('businees_engineerInfo_authStatus')
+          console.log('authStatusauthStatusauthStatus', authStatus)
+          if (authStatus === 'isAuth' || this.engineerInfo.authentication) {
+            this.startVoipVoiceOrVideo()
           } else {
-            console.log('不满足在APP内且window.cmcc存在')
+            // 授权弹窗提示
+            this.showAuthDialog = true
           }
         } else {
           // 不在工作时间内，弹窗提示
@@ -162,6 +149,38 @@ export default {
         }
       } catch (e) {
         console.log('唤起音频出错了')
+      }
+    },
+    /**
+     * 唤起音频
+     */
+    startVoipVoiceOrVideo () {
+      // 在APP内呼叫工程师音频
+      if (window?.cmcc) {
+        // 呼叫工程师音频独有参数
+        const ext = {
+          engMode: true,
+          engPhoto: this.avatar,
+          engRefer: `智家工程师${this.engineerInfo.realName}`
+        }
+        // 基础参数
+        const param = {
+          debug: false,
+          type: '0', // 音视频类型，0是音频客服，1是视频客服
+          useOneScreen: false, // 是否使用同屏，true 表示使用同屏 ，false表示非同屏，默认传true
+          useGonetoneUserFlag: false, // 是否使用全球通用户专属视觉页面，如果传true，需先自行校验是全球通用户，默认传false
+          voiceCallUseOnline: false, // 是否走热线混排，看该省份该渠道是否支持， 默认情况下传false
+          appKey: 'jtztty_sdk#ZH46048899506', // 渠道申请的AppKey
+          companyId: 'jtztty_sdk', // 对应appkey #号前的内容
+          sceneEntry: this.sceneEntry, // 场景值，需要产品分配，联系在线本部 王乐（18703666930）、黄宇（13526430307）配置
+          guideVideoNumber: '0', // 视频引导页展示次数，配置规则：如果不配置默认是展示3次，如果配置“0”默认引导页不展示，如果配置大于等于999，引导页会一直显示，如果，配置1-998，那么会根据配置的次数进行展示
+          guideVoiceNumber: '0', // 音频引导页展示次数，配置规则同视频引导页
+          ext
+        }
+        console.log('确认呼叫', window.cmcc)
+        window.cmcc.startVoipVoiceOrVideo(param)
+      } else {
+        console.log('不满足在APP内window.cmcc存在')
       }
     },
     /**
