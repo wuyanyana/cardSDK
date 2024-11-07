@@ -22,29 +22,9 @@ export default {
   },
   mounted () {
     _cmebEngineer.init('#pluginId', {
-      telephone: 'MF2UsXWry6cqmDfhPUJ/V3wRko6bw19pw5G5V/CHirk126fGpqxBLf0EMAwRW1flXWZvTkLQ4bGNCCefKPjMlhHiQGwSWu4dTM8xZdiNmbFUT2RGacIBOEBdfPobdOd0ogRvC4I2E1DXGhDnNG5YF1ghTzkZHDszSk/8+RkC9UI=',
-      broadbandNum: 'MF2UsXWry6cqmDfhPUJ/V3wRko6bw19pw5G5V/CHirk126fGpqxBLf0EMAwRW1flXWZvTkLQ4bGNCCefKPjMlhHiQGwSWu4dTM8xZdiNmbFUT2RGacIBOEBdfPobdOd0ogRvC4I2E1DXGhDnNG5YF1ghTzkZHDszSk/8+RkC9UI=',
-      appId: 'BROBAND_ENGINEER_APP',
-      sceneEntry: '843',
-      onError: (error) => {
-        console.log('查询工程师信息失败了', error)
-        // 此处可处理工程师获取失败后的逻辑，比如删除插件容器或去掉容器的外间距及其他逻辑
-      }
-    })
-    _cmebEngineer.init('#pluginId2', {
-      telephone: 'MF2UsXWry6cqmDfhPUJ/V3wRko6bw19pw5G5V/CHirk126fGpqxBLf0EMAwRW1flXWZvTkLQ4bGNCCefKPjMlhHiQGwSWu4dTM8xZdiNmbFUT2RGacIBOEBdfPobdOd0ogRvC4I2E1DXGhDnNG5YF1ghTzkZHDszSk/8+RkC9UI=',
-      broadbandNum: 'MF2UsXWry6cqmDfhPUJ/V3wRko6bw19pw5G5V/CHirk126fGpqxBLf0EMAwRW1flXWZvTkLQ4bGNCCefKPjMlhHiQGwSWu4dTM8xZdiNmbFUT2RGacIBOEBdfPobdOd0ogRvC4I2E1DXGhDnNG5YF1ghTzkZHDszSk/8+RkC9UI=',
-      appId: 'BROBAND_ENGINEER_APP',
-      sceneEntry: '843',
-      onError: (error) => {
-        console.log('查询工程师信息失败了', error)
-        // 此处可处理工程师获取失败后的逻辑，比如删除插件容器或去掉容器的外间距及其他逻辑
-      }
-    })
-    _cmebEngineer.init('#pluginId3', {
-      telephone: 'F6XB5IpR9t2UezqrwYvYOukxt4ZOfqmuJQZ5fcIaHkItv15YzwsFSuKIWe4dDAPTZsIzAxtJPMe5s0yCkB8p+eo0PlN0GMyCEKdIvtHB1qyHZbuzLFXVEKBjyPRTVp7PQlHgqOZrddBF3+k9NtCewiGeDXLbNmW2b4z8gNvK6ac=',
-      broadbandNum: 'F6XB5IpR9t2UezqrwYvYOukxt4ZOfqmuJQZ5fcIaHkItv15YzwsFSuKIWe4dDAPTZsIzAxtJPMe5s0yCkB8p+eo0PlN0GMyCEKdIvtHB1qyHZbuzLFXVEKBjyPRTVp7PQlHgqOZrddBF3+k9NtCewiGeDXLbNmW2b4z8gNvK6ac=',
-      appId: 'BROBAND_ENGINEER_APP',
+      telephone: 'dTKUJ/Fn5I3kHu+hAzO8aNeO5KWHRuHZdioTcwjp2T4FcQ/1YqcrCtPhr2CNdsjgMxM2+70kOMPrNz6C8SnRJ2vTKb1G7PaEQ63b4f7+Mzbm9fuyn1KahNr2AzECxDt2x4sxrclTuv7Y9L8feTLOlJhJc75lO6p3kbL/CF+xwe4=',
+      broadbandNum: 'dTKUJ/Fn5I3kHu+hAzO8aNeO5KWHRuHZdioTcwjp2T4FcQ/1YqcrCtPhr2CNdsjgMxM2+70kOMPrNz6C8SnRJ2vTKb1G7PaEQ63b4f7+Mzbm9fuyn1KahNr2AzECxDt2x4sxrclTuv7Y9L8feTLOlJhJc75lO6p3kbL/CF+xwe4=',
+      appId: 'BROBAND_ENGINEER_HA',
       sceneEntry: '843',
       onError: (error) => {
         console.log('查询工程师信息失败了', error)

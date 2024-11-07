@@ -1,20 +1,20 @@
 <template>
-  <div v-if="visible" class="business-dialog-overlay">
-    <div class="business-dialog-wrap">
-      <div class="business-dialog-header business-mt30">
+  <div v-if="visible" class="business-authDialog-overlay">
+    <div class="business-authDialog-wrap">
+      <i class="close-icon" @click="handleCloseDislog"></i>
+      <div class="business-authDialog-header">
         确认呼叫
-        <i class="close-icon" @click="handleCloseDislog"></i>
       </div>
-      <div class="business-dialog-body business-mt30">
-        <div>您即将呼叫智家工程师，并将{{mobile}}作为您和工程师的联系号码</div>
+      <div class="business-authDialog-body">
+        <div>您即将呼叫智家工程师，并将{{desMobile}}作为您和工程师的联系号码</div>
       </div>
-      <div class="business-dialog-footer business-mt30" @click="handelConfirmCall">确认呼叫</div>
+      <div class="business-authDialog-footer" @click="handelConfirmCall">确认呼叫</div>
     </div>
   </div>
 </template>
 
 <script>
-import { fetchGetData } from '@/utils/request'
+import { fetchPostData } from '@/utils/request'
 export default {
   name: 'AuthenticationDialog',
   props: {
@@ -22,9 +22,9 @@ export default {
       type: Boolean,
       default: false
     },
-    mobile: {
+    desMobile: {
       type: String,
-      default: ''
+      default: '您的手机号'
     }
   },
   methods: {
@@ -33,28 +33,26 @@ export default {
      */
     handelConfirmCall () {
       this.$emit('handelConfirmCall')
+      this.$emit('update:visible')
       // 调用接口记录授权
-      this.record()
+      this.saveUserAuthorize()
     },
     /**
      * 用户授权记录
      */
-    record () {
-      const params = {
-        mobile: ''
-      }
+    saveUserAuthorize () {
       // 先清除授权记录的缓存信息
-      fetchGetData('/nrapigate/nrhall/broadband/business/queryBroadClearCard', params).then(res => {
-        if (res.returnCode === '0' && res.data) {
-          // 成功了缓存授权状态，用户不刷新页面情况下再次点击不需要弹授权弹窗
-          sessionStorage.setItem('businees_engineerInfo_authStatus', 'isAuth')
+      fetchPostData('/nrapigate/nrhall/broadband/business/saveUserAuthorize').then(res => {
+        if (res.returnCode === '0') {
+          console.log('用户授权记录失败成功')
         } else {
           console.log(res.returnMessage || '用户授权记录失败')
-          sessionStorage.setItem('businees_engineerInfo_authStatus', 'isAuth')
         }
       }).catch(error => {
         console.log(error || '用户授权记录失败')
-        sessionStorage.setItem('businees_engineerInfo_authStatus', 'isAuth')
+      }).finally(() => {
+        // 授权成功或者失败，都缓存已授权状态，用户不刷新页面情况下再次点击不需要弹授权弹窗
+        sessionStorage.setItem('businees_engineerInfo_authStatus', 'isAuthorize')
       })
     },
     /**
@@ -68,7 +66,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.business-dialog-overlay {
+.business-authDialog-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -79,46 +77,51 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 99999;
-  .business-dialog-wrap {
+  .business-authDialog-wrap {
     width: 600px;
-    height: 434px;
     background: #FFFFFF;
     border-radius: 24px;
-    .business-mt30{
-      margin-top: 30px;
+    padding: 30px 0;
+    position: relative;
+    .close-icon{
+      width: 40px;
+      height: 40px;
+      background: url("http://activity.cmcc-cs.cn/chop/res/prd-ngmc1/product/product/2d0e3cb3f25e4113af2dd368532f3b35.png");
+      background-size: cover;
+      position: absolute;
+      top: 18px;
+      right: 18px;
     }
-    .business-dialog-header{
+    .business-mt48{
+      margin-top: 48px;
+    }
+    .business-authDialog-header{
       font-size: 40px;
       font-weight: bold;
       color: #000000;
       line-height: 56px;
       text-align: center;
-      position: relative;
-      .close-icon{
-        width: 40px;
-        height: 40px;
-        background: url("http://activity.cmcc-cs.cn/chop/res/prd-ngmc1/product/item/9640124573304c92924988437b55a424.png");
-        background-size: cover;
-        position: absolute;
-        top: 0;
-        right: 15px;
-      }
     }
-    .business-dialog-body{
-      padding: 0 30px;
+    .business-authDialog-body{
+      padding: 48px 30px 48px;
       font-size: 32px;
       color: #000000;
       line-height: 44px;
       text-align: center;
     }
-    .business-dialog-footer {
-      border-top: 2px solid #DDD;
-      padding-top: 30px;
+    .business-authDialog-footer {
+      width: 500px;
+      height: 90px;
+      margin: 0 auto;
+      border-radius: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #2892FF;
       font-size: 32px;
       font-weight: bold;
-      color: #007EFF;
-      line-height: 36px;
-      text-align: center;
+      color: #FFFFFF;
+      line-height: 44px;
     }
   }
 }

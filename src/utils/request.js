@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const baseUrl = 'https://wx.10086.cn/website'
+// const baseUrl = 'https://wx.10086.cn/website '
+const baseUrl = 'http://hlwtest.deskpro.cn/website'
 const config = {
   timeout: 50000,
   crossDomain: true
@@ -16,8 +17,16 @@ export function fetchGetData (url, params) {
       .then(function (response) {
         return resolve(response.data)
       }).catch(error => {
-        console.log('智家工程师查询接口失败了')
         return reject(error)
       })
   })
 };
+// axios中的post请求--主地址baseUrl
+export function fetchPostData (url, params) {
+  params = params || {}
+  return new Promise(resolve => {
+    service.post(baseUrl + url, { params: params }).then(function (res) {
+      return resolve(res)
+    })
+  })
+}
