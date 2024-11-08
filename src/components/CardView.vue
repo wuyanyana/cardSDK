@@ -12,7 +12,7 @@
       <div class="business-plugin-card-right">
         <div class="business-top-wrap business-flex-between-center">
           <span class="business-name">{{ engineerInfo.realName }}</span>
-          <div @click="gotoVoiceService" class="business-btn-wrap business-flex-between-center"><i class="business-tel-icon"></i><span class="business-btn">联系工程师</span></div>
+          <div @click="gotoVoiceService" class="business-btn-wrap business-flex-between-center" v-if="isAppChannel"><i class="business-tel-icon"></i><span class="business-btn">联系工程师</span></div>
         </div>
         <div class="business-bottom-wrap business-flex-between-center">
           <div class="business-item">
