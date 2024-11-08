@@ -21,12 +21,3 @@ export function fetchGetData (url, params) {
       })
   })
 };
-// axios中的post请求--主地址baseUrl
-export function fetchPostData (url, params) {
-  params = params || {}
-  return new Promise(resolve => {
-    service.post(baseUrl + url, { params: params }).then(function (res) {
-      return resolve(res)
-    })
-  })
-}

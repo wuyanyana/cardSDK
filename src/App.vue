@@ -4,7 +4,7 @@
       <div id="pluginId"></div>
       <div id="pluginId2"></div>
       <div id="pluginId3"></div>
-      <button class="btn1" @click="change">切换</button>
+      <!-- <button class="btn1" @click="change">切换</button> -->
   </div>
 </div>
 
@@ -22,8 +22,8 @@ export default {
   },
   mounted () {
     _cmebEngineer.init('#pluginId', {
-      telephone: 'dTKUJ/Fn5I3kHu+hAzO8aNeO5KWHRuHZdioTcwjp2T4FcQ/1YqcrCtPhr2CNdsjgMxM2+70kOMPrNz6C8SnRJ2vTKb1G7PaEQ63b4f7+Mzbm9fuyn1KahNr2AzECxDt2x4sxrclTuv7Y9L8feTLOlJhJc75lO6p3kbL/CF+xwe4=',
-      broadbandNum: 'dTKUJ/Fn5I3kHu+hAzO8aNeO5KWHRuHZdioTcwjp2T4FcQ/1YqcrCtPhr2CNdsjgMxM2+70kOMPrNz6C8SnRJ2vTKb1G7PaEQ63b4f7+Mzbm9fuyn1KahNr2AzECxDt2x4sxrclTuv7Y9L8feTLOlJhJc75lO6p3kbL/CF+xwe4=',
+      telephone: 'PfZWEqCxR6ToXk/P404dKZWqhQFSbyWnd1ugy+1IPR9H03jUGOGNNUV11x2uveC63GQbFJXL09OC+cbdSLGUXDpyWjsjL/JyvzKOQppsaWDy0CKTcK5vgyufCaDUdA3s7BsZMeZcEM2b0OFcGIL/87nHOykSArIFEAJibqxPdGU=',
+      broadbandNum: 'PfZWEqCxR6ToXk/P404dKZWqhQFSbyWnd1ugy+1IPR9H03jUGOGNNUV11x2uveC63GQbFJXL09OC+cbdSLGUXDpyWjsjL/JyvzKOQppsaWDy0CKTcK5vgyufCaDUdA3s7BsZMeZcEM2b0OFcGIL/87nHOykSArIFEAJibqxPdGU=',
       appId: 'BROBAND_ENGINEER_HA',
       sceneEntry: '843',
       onError: (error) => {
@@ -37,7 +37,7 @@ export default {
       _cmebEngineer.init('#pluginId', {
         telephone: 'F6XB5IpR9t2UezqrwYvYOukxt4ZOfqmuJQZ5fcIaHkItv15YzwsFSuKIWe4dDAPTZsIzAxtJPMe5s0yCkB8p+eo0PlN0GMyCEKdIvtHB1qyHZbuzLFXVEKBjyPRTVp7PQlHgqOZrddBF3+k9NtCewiGeDXLbNmW2b4z8gNvK6ac=',
         broadbandNum: 'F6XB5IpR9t2UezqrwYvYOukxt4ZOfqmuJQZ5fcIaHkItv15YzwsFSuKIWe4dDAPTZsIzAxtJPMe5s0yCkB8p+eo0PlN0GMyCEKdIvtHB1qyHZbuzLFXVEKBjyPRTVp7PQlHgqOZrddBF3+k9NtCewiGeDXLbNmW2b4z8gNvK6ac=',
-        appId: 'BROBAND_ENGINEER_APP',
+        appId: 'BROBAND_ENGINEER_HA',
         sceneEntry: '843',
         onError: (error) => {
           console.log('查询工程师信息失败了', error)

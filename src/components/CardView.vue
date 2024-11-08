@@ -38,7 +38,7 @@
   <!-- 非工作时间的弹窗展示 -->
   <NonWorkingDialog :visible.sync="showDialog" />
    <!-- 授权弹窗 -->
-   <AuthorizationDialog :visible.sync="showAuthDialog" :desMobile="engineerInfo.desMobile"  @handelConfirmCall="startVoipVoiceOrVideo"/>
+   <AuthorizationDialog :visible.sync="showAuthDialog" :telephone="telephone" :appId="appId" :desMobile="engineerInfo.desMobile"  @handelConfirmCall="startVoipVoiceOrVideo"/>
 </div>
 
 </template>

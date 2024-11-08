@@ -14,13 +14,21 @@
 </template>
 
 <script>
-import { fetchPostData } from '@/utils/request'
+import { fetchGetData } from '@/utils/request'
 export default {
   name: 'AuthorizationDialog',
   props: {
     visible: {
       type: Boolean,
       default: false
+    },
+    telephone: {
+      type: String,
+      default: ''
+    },
+    appId: {
+      type: String,
+      default: ''
     },
     desMobile: {
       type: String,
@@ -32,19 +40,25 @@ export default {
      * 确认呼叫
      */
     handelConfirmCall () {
-      this.$emit('handelConfirmCall')
-      this.$emit('update:visible')
       // 调用接口记录授权
       this.saveUserAuthorize()
+      // 呼叫音频
+      this.$emit('handelConfirmCall')
+      // 关闭弹窗
+      this.handleCloseDislog()
     },
     /**
      * 用户授权记录
      */
     saveUserAuthorize () {
-      // 先清除授权记录的缓存信息
-      fetchPostData('/nrapigate/nrhall/broadband/business/saveUserAuthorize').then(res => {
+      if (!this.telephone || !this.appId) return
+      const params = {
+        telephone: this.telephone,
+        appId: this.appId
+      }
+      fetchGetData('/nrapigate/nrhall/broadband/business/saveUserAuthorize', params).then(res => {
         if (res.returnCode === '0') {
-          console.log('用户授权记录失败成功')
+          console.log('用户授权记录成功')
         } else {
           console.log(res.returnMessage || '用户授权记录失败')
         }
