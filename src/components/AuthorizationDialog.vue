@@ -6,7 +6,7 @@
         确认呼叫
       </div>
       <div class="business-authDialog-body">
-        <div>您即将呼叫智家工程师，并将{{desMobile}}作为您和工程师的联系号码</div>
+        <div>您即将呼叫智家工程师，并将{{userDesMobile}}作为您和工程师的联系号码</div>
       </div>
       <div class="business-authDialog-footer" @click="handelConfirmCall">确认呼叫</div>
     </div>
@@ -30,7 +30,7 @@ export default {
       type: String,
       default: ''
     },
-    desMobile: {
+    userDesMobile: {
       type: String,
       default: '您的手机号'
     }

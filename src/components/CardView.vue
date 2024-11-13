@@ -38,7 +38,7 @@
   <!-- 非工作时间的弹窗展示 -->
   <NonWorkingDialog :visible.sync="showDialog" />
    <!-- 授权弹窗 -->
-   <AuthorizationDialog :visible.sync="showAuthDialog" :telephone="telephone" :appId="appId" :desMobile="engineerInfo.desMobile"  @handelConfirmCall="startVoipVoiceOrVideo"/>
+   <AuthorizationDialog :visible.sync="showAuthDialog" :telephone="telephone" :appId="appId" :userDesMobile="engineerInfo.userDesMobile"  @handelConfirmCall="startVoipVoiceOrVideo"/>
 </div>
 
 </template>
@@ -136,7 +136,7 @@ export default {
           // 缓存的用户授权记录是否存在 || 接口授权记录
           const authStatus = sessionStorage.getItem('businees_engineerInfo_authStatus')
           console.log('authStatusauthStatusauthStatus', authStatus)
-          if (authStatus === 'isAuthorize' || this.engineerInfo.userAuthorize) {
+          if (authStatus === 'isAuthorize' || this.engineerInfo?.userAuthorize === '1') {
             this.startVoipVoiceOrVideo()
           } else {
             // 授权弹窗提示
