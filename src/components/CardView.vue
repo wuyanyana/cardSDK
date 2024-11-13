@@ -135,7 +135,7 @@ export default {
         if (hours >= 8 && hours < 20) {
           // 缓存的用户授权记录是否存在 || 接口授权记录
           const authStatus = sessionStorage.getItem('businees_engineerInfo_authStatus')
-          if (authStatus === 'isAuthorize' || this.engineerInfo?.userAuthorize === '1') {
+          if (this.engineerInfo?.userAuthorize === '1' || authStatus === 'isAuthorize') {
             this.startVoipVoiceOrVideo()
           } else {
             // 授权弹窗提示
