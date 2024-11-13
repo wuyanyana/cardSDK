@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://wx.10086.cn/website '
+const baseUrl = 'https://wx.10086.cn/website'
 const config = {
   timeout: 50000,
   crossDomain: true

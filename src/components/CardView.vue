@@ -135,7 +135,6 @@ export default {
         if (hours >= 8 && hours < 20) {
           // 缓存的用户授权记录是否存在 || 接口授权记录
           const authStatus = sessionStorage.getItem('businees_engineerInfo_authStatus')
-          console.log('authStatusauthStatusauthStatus', authStatus)
           if (authStatus === 'isAuthorize' || this.engineerInfo?.userAuthorize === '1') {
             this.startVoipVoiceOrVideo()
           } else {
@@ -177,7 +176,6 @@ export default {
           guideVoiceNumber: '0', // 音频引导页展示次数，配置规则同视频引导页
           ext
         }
-        console.log('确认呼叫', window.cmcc)
         window.cmcc.startVoipVoiceOrVideo(param)
       } else {
         console.log('不满足在APP内window.cmcc存在')
